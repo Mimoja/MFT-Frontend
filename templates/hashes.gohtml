@@ -1,0 +1,14 @@
+{{define "hashes"}}
+
+
+<dl class="row">
+    <dt class="col-sm-3">SSDEEP    </dt><dd class="text-monospace col-sm-9">{{.SSDEEP}}</dd>
+    <dt class="col-sm-3">SHA3(512) </dt><dd class="text-monospace col-sm-9">{{.SHA3_512}}</dd>
+    <dt class="col-sm-3">SHA512    </dt><dd class="text-monospace col-sm-9">{{.SHA512}}</dd>
+    <dt class="col-sm-3">SHA256    </dt><dd class="text-monospace col-sm-9">{{.SHA256}}</dd>
+    <dt class="col-sm-3">SHA1      </dt><dd class="text-monospace col-sm-9">{{.SHA1}}</dd>
+    <dt class="col-sm-3">MD5       </dt><dd class="text-monospace col-sm-9">{{.MD5}}</dd>
+    <dt class="col-sm-3">Whirlpool </dt><dd class="text-monospace col-sm-9">{{.Whirlpool}}</dd>
+</dl>
+
+{{end}}

@@ -1,0 +1,17 @@
+{{define "report"}}
+{{template "header" .}}
+{{if .Page.IsOkay}}
+<div class="content">
+	<h2>Report for {{if not .UploadMeta.Name}}{{.Import.MetaData.PackageID.GetID}}{{else}}{{.UploadMeta.Name}}{{end}}</h2>
+</div>
+{{template "package" .}}
+{{range .FlashImages}}
+	{{template "flashimage" .}}
+{{end}}
+{{else}}
+	<div class="content">
+		<h2>{{.Page.Error}}</h2>
+	</div>
+{{end}}
+{{template "footer"}}
+{{end}}

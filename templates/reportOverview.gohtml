@@ -1,0 +1,26 @@
+{{define "reportOverview"}}
+{{template "header" .}}
+<div class="content">
+	<h2>Last Reports</h2>
+
+	<table class="table col-md-12">
+		<thead>
+		<tr>
+			<th scope="col">Time</th>
+			<th scope="col">ID</th>
+			<th scope="col">Filename</th>
+		</tr>
+		</thead>
+		<tbody>
+		{{range .LastReports}}
+			<tr>
+				<th scope="row">{{.ImportTime}}</th>
+				<td><a class="text-monospace" href="/report/{{.ID}}">{{.ID}}</a></td>
+				<td>{{.Name}}</td>
+			</tr>
+		{{end}}
+		</tbody>
+	</table>
+</div>
+{{template "footer" .}}
+{{end}}

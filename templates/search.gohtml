@@ -1,0 +1,78 @@
+{{define "search"}}
+{{template "header" .}}
+<div class="content">
+
+	<form class="form-inline" action="/search" method="get">
+		<input class="form-control mr-sm-2" name="query" type="search" placeholder="Search" aria-label="Search">
+		<button class="btn btn-outline-warning" type="submit">Search</button>
+	</form>
+
+{{if not $.Error}}
+	<div class="package">
+		<h3 class="">Found '{{.Query}}' in <a href="?query={{.Query}}&take={{.Hits}}">{{.Hits}}</a> documents</h3>
+	</div>
+
+	{{range .Documents}}
+	<div class="package card card-body">
+		<dl class="row">
+			<dt class="col-sm-3">Vendor</dt>      <dd class="col-sm-9"><a href="/search?query={{.Hit.MetaData.Vendor}}">{{.Hit.MetaData.Vendor}}</a></dd>
+			<dt class="col-sm-3">Product</dt>     <dd class="col-sm-9"><a href="/search?query={{.Hit.MetaData.Product}}">{{.Hit.MetaData.Product}}</a></dd>
+			<dt class="col-sm-3">Version</dt>     <dd class="col-sm-9"><a href="/search?query={{.Hit.MetaData.Version}}">{{.Hit.MetaData.Version}}</a>     </dd>
+			<dt class="col-sm-3">Title</dt>       <dd class="col-sm-9"><a href="/search?query={{.Hit.MetaData.Title}}">{{.Hit.MetaData.Title}}</a>       </dd>
+			<dt class="col-sm-3">Description</dt> <dd class="col-sm-9"><a href="/search?query={{.Hit.MetaData.Description}}">{{.Hit.MetaData.Description}}</a> </dd>
+			<dt class="col-sm-3">ReleaseDate</dt> <dd class="col-sm-9"><a href="">{{.Hit.MetaData.ReleaseDate}}</a> </dd>
+			<dt class="col-sm-3">DownloadURL</dt> <dd class="col-sm-9"><a href={{.Hit.MetaData.DownloadURL}}>{{.Hit.MetaData.DownloadURL}}</a></dd>
+
+			<dt class="col-sm-3">Tags</dt>        <dd class="col-sm-9">
+				{{range .Hit.Tags}}
+					<a class="badge badge-secondary" href="/search?query={{.}}">{{.}}</a>
+				{{end}}
+			</dd>
+			{{if $.Config.Frontend.DownloadEnabled}}
+				<a class="col-sm-12 btn btn-primary" type="button" href="{{.DownloadURL}}">Download</a>
+			{{end}}
+
+			<button class="col-sm-12 btn btn-primary" type="button" data-toggle="collapse" data-target="#Hashes_{{.Hit.MetaData.PackageID.GetID}}" aria-expanded="false" aria-controls="collapseExample">
+				Hashes
+			</button>
+			<div class="hashes collapse card" id="Hashes_{{.Hit.MetaData.PackageID.GetID}}" >
+				<dl class="row card-body">
+					<dt class="col-sm-1">SSDEEP    </dt><dd class="col-sm-11">{{.Hit.MetaData.PackageID.SSDEEP}}</dd>
+					<dt class="col-sm-1">SHA3(512) </dt><dd class="col-sm-11">{{.Hit.MetaData.PackageID.SHA3_512}}</dd>
+					<dt class="col-sm-1">SHA512    </dt><dd class="col-sm-11">{{.Hit.MetaData.PackageID.SHA512}}</dd>
+					<dt class="col-sm-1">SHA256    </dt><dd class="col-sm-11">{{.Hit.MetaData.PackageID.SHA256}}</dd>
+					<dt class="col-sm-1">SHA1      </dt><dd class="col-sm-11">{{.Hit.MetaData.PackageID.SHA1}}</dd>
+					<dt class="col-sm-1">MD5       </dt><dd class="col-sm-11">{{.Hit.MetaData.PackageID.MD5}}</dd>
+					<dt class="col-sm-1">Whirlpool </dt><dd class="col-sm-11">{{.Hit.MetaData.PackageID.Whirlpool}}</dd>
+				</dl>
+			</div>
+
+			<button class="col-sm-12 btn btn-primary" type="button" data-toggle="collapse" data-target="#Content_{{.Hit.MetaData.PackageID.GetID}}" aria-expanded="false" aria-controls="collapseExample">
+				Contents of Download package
+			</button>
+			<a class="col-sm-12 btn btn-primary" href="/report/{{.Hit.MetaData.PackageID.GetID}}">
+				Get Report
+			</a>
+			<div class="hashes card card-body collapse" id="Content_{{.Hit.MetaData.PackageID.GetID}}" >
+
+				{{range .Parent.Contents}}
+					<a class="col-sm-12" href="/file/{{.ID.GetID}}">{{.Path}}
+						{{range .Tags}}
+							<span class="badge badge-secondary">{{.}}</span>
+						{{end}}
+					</a>
+					<br>
+				{{end}}
+			</div>
+		</dl>
+	</div>
+
+	{{end}}
+
+	<a class="mb-4 ml-4 mt-0 btn btn-lg  btn-primary" href="?query={{.Query}}&take={{.Hits}}">Show all</a>
+{{else}}
+	<p>Error: {{$.Error}}</p>
+{{end}}
+</div>
+{{template "footer" .}}
+{{end}}

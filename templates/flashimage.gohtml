@@ -1,0 +1,19 @@
+{{define "flashimage"}}
+    <div class="card card-body m-2">
+        <h3>Flashimage {{.ID.GetID}}</h3>
+        <br>
+        <div class="row">
+            <div class="col-7">
+                {{template "hashes" .ID}}
+            </div>
+        </div>
+        <div id="EVERYTHING"></div>
+
+        <script>
+            var json = {{toJson .}};
+            var obj = JSON.parse(json);
+            document.getElementById("EVERYTHING").innerHTML = JSONTree.create(obj);
+        </script>
+
+    </div>
+{{end}}

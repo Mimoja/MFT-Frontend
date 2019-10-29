@@ -1,0 +1,32 @@
+{{define "package"}}
+    <div class="card card-body m-2">
+        <div class="row">
+            <div class="col-lg-4">
+                <dl class="row">
+                {{if not .Import.MetaData.Vendor}}{{else}}     <dt class="col-4">Vendor</dt>      <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Vendor}}">{{.Import.MetaData.Vendor}}</a></dd>{{end}}
+                {{if not .Import.MetaData.Product}}{{else}}    <dt class="col-4">Product</dt>     <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Product}}">{{.Import.MetaData.Product}}</a></dd>{{end}}
+                {{if not .Import.MetaData.Version}}{{else}}    <dt class="col-4">Version</dt>     <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Version}}">{{.Import.MetaData.Version}}</a></dd>{{end}}
+                {{if not .Import.MetaData.Title}}{{else}}      <dt class="col-4">Title</dt>       <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Title}}">{{.Import.MetaData.Title}}</a></dd>{{end}}
+                {{if not .Import.MetaData.Description}}{{else}}<dt class="col-4">Description</dt> <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Description}}">{{.Import.MetaData.Description}}</a></dd>{{end}}
+                {{if not .Import.MetaData.ReleaseDate}}{{else}}<dt class="col-4">ReleaseDate</dt> <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.ReleaseDate}}">{{.Import.MetaData.ReleaseDate}}</a></dd>{{end}}
+                {{if not .Import.MetaData.DownloadURL}}{{else}}<dt class="col-4">DownloadURL</dt> <dd class="col-sm-8"><a href="">{{.Import.MetaData.DownloadURL}}</a></dd>{{end}}
+                </dl>
+            </div>
+            <div class="col-7">
+                {{template "hashes" .Import.MetaData.PackageID}}
+            </div>
+        </div>
+    </div>
+    <div class="    card card-body m-2">
+       <dl class="row">
+        {{range .Import.Contents}}
+            <a class="col-sm-12" href="/file/{{.ID.GetID}}">{{.Path}}
+                {{range .Tags}}
+                    <span class="badge badge-secondary">{{.}}</span>
+                {{end}}
+            </a>
+            <br>
+        {{end}}
+        </dl>
+    </div>
+{{end}}

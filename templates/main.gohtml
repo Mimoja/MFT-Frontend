@@ -1,0 +1,26 @@
+{{define "main"}}
+{{template "header" .}}
+<div class="content">
+
+	<div class="container">
+		<div class="col-md-12 mb-4">
+			<h2>Main</h2>
+			<div>This is the Main page</div>
+		</div>
+
+		<div class="col-md-12 col-md-offset-2">
+			<h3>Upload File</h3>
+			<form method="POST" action="/upload" enctype="multipart/form-data">
+				<div class="form-group input-group input-file">
+					<input type="file" name="file" class="form-control" placeholder='Choose a file...' />
+					<span class="input-group-btn">
+						<button type="submit" class="btn btn-warning" type="button">Upload</button>
+					</span>
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+{{template "footer" .}}
+{{end}}
