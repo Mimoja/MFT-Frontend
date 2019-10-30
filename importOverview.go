@@ -1,7 +1,7 @@
 package main
 
 import (
-	MFTCommon "MimojaFirmwareToolkit/pkg/Common"
+	"github.com/Mimoja/MFT-Common"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"net/http"

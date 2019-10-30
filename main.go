@@ -1,7 +1,7 @@
 package main
 
 import (
-	"MimojaFirmwareToolkit/pkg/Common"
+	"github.com/Mimoja/MFT-Common"
 	"fmt"
 	"github.com/Masterminds/sprig"
 	"github.com/gin-contrib/static"
