@@ -12,6 +12,12 @@ type Page struct {
 	IsOkay bool
 }
 
+type MainPage struct {
+	Page
+	Imports int
+	FlashImages int
+}
+
 type ReportOverviewPage struct {
 	Page
 	LastReports []ImportRef

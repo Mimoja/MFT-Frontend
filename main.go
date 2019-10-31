@@ -1,9 +1,11 @@
 package main
 
 import (
-	"github.com/Mimoja/MFT-Common"
+	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/Masterminds/sprig"
+	"github.com/Mimoja/MFT-Common"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	"html/template"
@@ -12,6 +14,7 @@ import (
 	"log"
 	"net/http"
 	"path"
+	"strconv"
 )
 
 const host = ""
@@ -44,9 +47,6 @@ var templates = template.Must(template.New("dummy").Funcs(sprig.FuncMap()).Parse
 func display(c *gin.Context, tmpl string, data interface{}) {
 	c.Header("Content-Type", "html")
 
-	//TODO remove for production
-	//templates = template.Must(template.ParseFiles(getAllTemplates()...))
-
 	err := templates.ExecuteTemplate(c.Writer, tmpl, data)
 	if err != nil {
 		Bundle.Log.WithError(err).Error("Template error: ", err)
@@ -55,8 +55,35 @@ func display(c *gin.Context, tmpl string, data interface{}) {
 }
 
 func mainHandler(c *gin.Context) {
-	display(c, "main", &Page{Title: "MimojaFirmwareToolkit"})
+	page := MainPage{Page: Page{
+		Title:  "MimojaFirmwareToolkit",
+	}}
 
+	result, err := Bundle.DB.ES.Count("flashimages").Do(context.Background())
+	if err != nil {
+		Bundle.Log.WithError(err).Error("Could not Query ES for number of Flashimages")
+	} else {
+		b, err := json.Marshal(result)
+		if err != nil {
+			fmt.Printf("Error: %s", err)
+			return
+		}
+		page.FlashImages, _ = strconv.Atoi(string(b));
+	}
+
+	result, err = Bundle.DB.ES.Count("imports").Do(context.Background())
+	if err != nil {
+		Bundle.Log.WithError(err).Error("Could not Query ES for number of Imports")
+	} else {
+		b, err := json.Marshal(result)
+		if err != nil {
+			fmt.Printf("Error: %s", err)
+			return
+		}
+		page.Imports, _ = strconv.Atoi(string(b));
+	}
+
+	display(c, "main", &page)
 }
 
 func aboutHandler(c *gin.Context) {
