@@ -1,16 +1,30 @@
 {{define "flashimage"}}
     <div class="card card-body m-2">
-        <h3>Flashimage {{.ID.GetID}}</h3>
+        <h3>Flashimage {{.FlashImage.ID.GetID}}</h3>
         <br>
         <div class="row">
             <div class="col-7">
-                {{template "hashes" .ID}}
+                {{template "hashes" .FlashImage.ID}}
             </div>
+        </div>
+        <div class="col-12" >
+        {{range .Certificates}}
+            <dl class="row card">
+                <dt class="col-sm-3">Serial:    </dt><dd class="text-monospace col-sm-9">{{toHex .Serial}}</dd>
+                <dt class="col-sm-3">Valid Now: </dt><dd class="text-monospace col-sm-9">{{.Valid}}</dd>
+                <dt class="col-sm-3">Valid From: </dt><dd class="text-monospace col-sm-9">{{.Raw.validity.start}}</dd>
+                <dt class="col-sm-3">Valid To: </dt><dd class="text-monospace col-sm-9">{{.Raw.validity.end}}</dd>
+                <dt class="col-sm-3">Issuer:    </dt><dd class="text-monospace col-sm-9">{{.Issuer}}</dd>
+                <dt class="col-sm-3">Subject:    </dt><dd class="text-monospace col-sm-9">{{.Subject}}</dd>
+            </dl>
+            {{else}}
+        <span class="col-sm-12 btn-primary">No Certificates found</span>
+            {{end}}
         </div>
         <div id="EVERYTHING"></div>
 
         <script>
-            var json = {{toJson .}};
+            var json = {{toJson .FlashImage}};
             var obj = JSON.parse(json);
             document.getElementById("EVERYTHING").innerHTML = JSONTree.create(obj);
         </script>

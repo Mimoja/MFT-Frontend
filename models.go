@@ -29,6 +29,27 @@ type ImportRef struct {
 	Name       string
 }
 
+type ReportPage struct {
+	Page
+	UploadMeta  ImportRef
+	Import      MFTCommon.ImportEntry
+	Config      *MFTCommon.AppRunConfiguration
+	FlashImages []FlashDocument
+}
+
+type FlashDocument struct {
+	FlashImage MFTCommon.FlashImage
+	Certificates []CertificateDocument
+}
+
+type CertificateDocument struct {
+	Valid          bool
+	Subject        string
+	Issuer         string
+	Serial         string
+	Raw            map[string]interface{}
+}
+
 /*
 type ImportEntry struct {
 	ImportDataDefinition string         `json:",omitempty"`
@@ -55,10 +76,3 @@ func NewImportRef(importEntry MFTCommon.ImportEntry) ImportRef {
 	}
 }
 
-type ReportPage struct {
-	Page
-	UploadMeta  ImportRef
-	Import      MFTCommon.ImportEntry
-	Config      *MFTCommon.AppRunConfiguration
-	FlashImages []MFTCommon.FlashImage
-}

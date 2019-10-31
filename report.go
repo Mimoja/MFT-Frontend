@@ -1,15 +1,13 @@
 package main
 
 import (
-	"github.com/Mimoja/MFT-Common"
 	"encoding/json"
-	"fmt"
+	"github.com/Mimoja/MFT-Common"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
+	"log"
 	"net/http"
-	"os"
-	"path/filepath"
-	"strings"
+	"time"
 )
 
 func reportIDHandler(c *gin.Context) {
@@ -49,30 +47,7 @@ func reportIDHandler(c *gin.Context) {
 		if err != nil {
 			Bundle.Log.WithError(err).WithField("payload", string(sourceBytes)).Warnf("Could unmarshall old entry from elastic: %v", err)
 			errorResponse(c, http.StatusBadRequest, "Report not found")
-
 		}
-
-	}
-
-	//contenttree
-	basePath := ""
-	for _, c := range page.Import.Contents {
-		for _, tag := range c.Tags {
-			if tag == "DOWNLOAD" {
-				basePath = filepath.Dir(c.Path)
-			}
-		}
-	}
-	if basePath == "." {
-		basePath = ""
-	}
-
-	fmt.Println("Basepath is: ", basePath)
-	contentTree := make(map[string]interface{})
-	for _, c := range page.Import.Contents {
-		c.Path = c.Path[len(basePath):]
-		c.Path = strings.Trim(c.Path, "./")
-		contentTree[c.Path] = c
 	}
 
 	for _, b := range page.Import.Contents {
@@ -82,17 +57,69 @@ func reportIDHandler(c *gin.Context) {
 			logrus.Info("Could not query bug %s from elastic: ", err, b)
 			continue
 		}
-		if exists {
-			var flashimage MFTCommon.FlashImage
-			sourceBytes, _ := value.Source.MarshalJSON()
-			err = json.Unmarshal(sourceBytes, &flashimage)
-			page.FlashImages = append(page.FlashImages, flashimage)
+		if !exists {
+			continue
 		}
-	}
+		var flashimage MFTCommon.FlashImage
+		sourceBytes, _ := value.Source.MarshalJSON()
+		err = json.Unmarshal(sourceBytes, &flashimage)
+		if err != nil {
+			logrus.Info("Could not unmarshall flashimage ", err)
+			continue
+		}
+		flashDocument := FlashDocument{FlashImage: flashimage}
 
-	enc := json.NewEncoder(os.Stdout)
-	enc.SetIndent("", " ")
-	enc.Encode(contentTree)
+		for _, cert := range flashimage.Certificates {
+			exists, err, meta := Bundle.DB.Exists("certificates", cert)
+
+			if err != nil {
+				log.Println("Could not get cert: ", err)
+			} else if !exists {
+				log.Println("Could not get cert: not exist")
+			}
+			var newCert map[string]interface{}
+			certBytes, err := meta.Source.MarshalJSON()
+			err = json.Unmarshal(certBytes, &newCert)
+			if err != nil {
+				log.Println("Could not unmarshall cert: ", err)
+				continue
+			}
+
+			validity := newCert["validity"].(map[string]interface{})
+			validity_end, _ := time.Parse(time.RFC3339, validity["end"].(string))
+			//validity_start,_ := time.Parse(time.RFC3339,validity["start"].(string))
+
+			subjectArrayJSON, _ := json.Marshal(newCert["subject"])
+			var subjectMap map[string][]string
+			err = json.Unmarshal(subjectArrayJSON, &subjectMap)
+			if err != nil {
+				log.Println("Could not unmarshall cert: ", err)
+				continue
+			}
+
+			issuerArrayJSON, _ := json.Marshal(newCert["issuer"])
+			var issuerMap map[string][]string
+			err = json.Unmarshal(issuerArrayJSON, &issuerMap)
+			if err != nil {
+				log.Println("Could not unmarshall cert: ", err)
+				continue
+			}
+			if len(subjectMap) == 0 || len(issuerMap) == 0 {
+				log.Println("Cert is empty")
+				continue
+			}
+			certDoc := CertificateDocument{
+				Raw:     newCert,
+				Valid:   validity_end.After(time.Now()),
+				Subject: subjectMap["common_name"][0],
+				Issuer:  issuerMap["common_name"][0],
+				Serial:  newCert["serial_number"].(string),
+			}
+
+			flashDocument.Certificates = append(flashDocument.Certificates, certDoc)
+		}
+		page.FlashImages = append(page.FlashImages, flashDocument)
+	}
 
 	display(c, "report", page)
 }
