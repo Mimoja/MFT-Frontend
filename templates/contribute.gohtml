@@ -2,7 +2,30 @@
 {{template "header" .}}
 <div class="content">
 	<h2>Contribute</h2>
-	<div>This is the Contribute page</div>
+
+	<div id="doc" class="markdown-body container-fluid">
+		<p>This project is hosted on <a href="https://github.com/Mimoja/MFT" target="_blank">Github.</a></p>
+		<p>We are currently hosting on a very limited setup. If you are able to contribute to hosting in whatever aspect
+			please reach out to us under <a href="mailto:git@mimoja.de" target="_blank">git@mimoja.de</a></p>
+		<p>There is quite some work missing. This includes:</p>
+		<ul>
+			<li>Nice CSS for analysis data</li>
+			<li>Filter for Vendor / Mainboard search in the Reports tab</li>
+			<li>Improved Search</li>
+			<li>More unpackers
+				<ul>
+					<li>Innosetup</li>
+					<li>Run updater in sandbox</li>
+				</ul>
+			</li>
+		</ul><p>Also refer to GitHub’s issue tracker.</p><p>Analysers missing for the moment:</p><ul>
+			<li>Intel ME</li>
+			<li>Intel Bootguard (WIP)</li>
+			<li>Intel IFD (Rewrite WIP)</li>
+			<li>Microcode</li>
+			<li>Update Size and Frequency metadata analyser</li>
+		</ul></div>
+
 </div>
 {{template "footer" .}}
 {{end}}About

@@ -34,7 +34,7 @@ func reportIDHandler(c *gin.Context) {
 	}
 
 	if !found {
-		page.Page.Error = "Report was not found or is not ready yet"
+		page.Page.Error = "Report was not found or is not ready yet. Please try again in a moment"
 		page.Page.IsOkay = false
 		display(c, "report", page)
 		return
