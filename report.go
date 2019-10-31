@@ -51,7 +51,6 @@ func reportIDHandler(c *gin.Context) {
 	}
 
 	for _, b := range page.Import.Contents {
-
 		exists, err, value := Bundle.DB.Exists("flashimages", b.ID.GetID())
 		if err != nil {
 			logrus.Info("Could not query bug %s from elastic: ", err, b)
@@ -118,6 +117,7 @@ func reportIDHandler(c *gin.Context) {
 
 			flashDocument.Certificates = append(flashDocument.Certificates, certDoc)
 		}
+
 		page.FlashImages = append(page.FlashImages, flashDocument)
 	}
 
