@@ -10,12 +10,12 @@
         <div class="col-12" >
             {{template "certificates" .}}
         </div>
-        <div id="EVERYTHING"></div>
+        <div id="EVERYTHING_{{.FlashImage.ID.GetID}}"></div>
 
         <script>
             var json = {{toJson .FlashImage}};
             var obj = JSON.parse(json);
-            document.getElementById("EVERYTHING").innerHTML = JSONTree.create(obj);
+            document.getElementById("EVERYTHING_{{.FlashImage.ID.GetID}}").innerHTML = JSONTree.create(obj);
         </script>
 
     </div>
