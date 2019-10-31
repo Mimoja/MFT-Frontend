@@ -10,7 +10,7 @@
         <div class="col-12" >
         {{range .Certificates}}
             <dl class="row card">
-                <dt class="col-sm-3">Serial:    </dt><dd class="text-monospace col-sm-9">{{toHex .Serial}}</dd>
+                <dt class="col-sm-3">Serial:    </dt><dd class="text-monospace col-sm-9">{{.Serial}}</dd>
                 <dt class="col-sm-3">Valid Now: </dt><dd class="text-monospace col-sm-9">{{.Valid}}</dd>
                 <dt class="col-sm-3">Valid From: </dt><dd class="text-monospace col-sm-9">{{.Raw.validity.start}}</dd>
                 <dt class="col-sm-3">Valid To: </dt><dd class="text-monospace col-sm-9">{{.Raw.validity.end}}</dd>
