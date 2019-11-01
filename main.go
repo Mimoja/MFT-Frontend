@@ -47,6 +47,8 @@ var templates = template.Must(template.New("dummy").Funcs(sprig.FuncMap()).Parse
 func display(c *gin.Context, tmpl string, data interface{}) {
 	c.Header("Content-Type", "html")
 
+	templates = template.Must(template.New("dummy").Funcs(sprig.FuncMap()).ParseFiles(getAllTemplates()...))
+
 	err := templates.ExecuteTemplate(c.Writer, tmpl, data)
 	if err != nil {
 		Bundle.Log.WithError(err).Error("Template error: ", err)

@@ -7,16 +7,35 @@
                 {{template "hashes" .FlashImage.ID}}
             </div>
         </div>
-        <div class="col-12" >
+        <div class="row" >
+            <div class="col-12">
+                <h3>Certificates</h3>
             {{template "certificates" .}}
+            </div>
         </div>
-        <div id="EVERYTHING_{{.FlashImage.ID.GetID}}"></div>
+        {{if not .FlashImage.AMD}}{{else}}
+            <div class="row" >
+                <div class="col-12">
+                    <h3>AMD</h3>
+
+                </div>
+            </div>
+        {{end}}
+
+        {{if not .FlashImage.INTEL}}{{else}}
+            {{template "intel" .FlashImage.INTEL}}
+        {{end}}
+
+        {{if not .FlashImage.AMD}}{{else}}
+
+        <div id="EVERYTHING_AMD_{{.FlashImage.ID.GetID}}"></div>
 
         <script>
-            var json = {{toJson .FlashImage}};
+            var json = {{toJson .FlashImage.AMD}};
             var obj = JSON.parse(json);
-            document.getElementById("EVERYTHING_{{.FlashImage.ID.GetID}}").innerHTML = JSONTree.create(obj);
+            document.getElementById("EVERYTHING_AMD_{{.FlashImage.ID.GetID}}").innerHTML = JSONTree.create(obj);
         </script>
+        {{end}}
 
     </div>
 {{end}}

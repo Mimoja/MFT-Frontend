@@ -1,0 +1,166 @@
+{{define "intel"}}
+    <div class="row" >
+        <div class="col-12">
+            <h3>Intel</h3>
+            <div class="card-body card row">
+                <h4>IFD:</h4>
+                <dl class="row">
+                    <dt class="col-sm-3">Version:    </dt><dd class="text-monospace col-sm-9">{{.IFD.Version}}</dd>
+                    <dt class="col-sm-3">Offset: </dt><dd class="text-monospace col-sm-9">{{.IFD.HeaderOffset}}</dd>
+                    <dt class="col-sm-3">Signature: </dt><dd class="text-monospace col-sm-9">{{.IFD.HEADER.FLVALSIG}}</dd>
+                    <dt class="col-sm-3">FLMAP0: </dt><dd class="text-monospace col-sm-9">
+                        <dl class="row">
+                            <dt class="col-sm-3">NR: </dt><dd class="text-monospace col-sm-9">{{.IFD.HEADER.FLMAP0.NR}}</dd>
+                            <dt class="col-sm-3">FRBA: </dt><dd class="text-monospace col-sm-9">{{.IFD.HEADER.FLMAP0.FRBA}}</dd>
+                            <dt class="col-sm-3">NC:</dt><dd class="text-monospace col-sm-9">{{.IFD.HEADER.FLMAP0.NC}}</dd>
+                            <dt class="col-sm-3">FCBA: </dt><dd class="text-monospace col-sm-9">{{.IFD.HEADER.FLMAP0.FCBA}}</dd>
+                        </dl>
+                    </dd>
+                    <dt class="col-sm-3">FLMAP1:    </dt><dd class="text-monospace col-sm-9">
+                        <dl class="row">
+                            <dt class="col-sm-3">ISL: </dt><dd class="text-monospace col-sm-9">{{.IFD.HEADER.FLMAP1.ISL}}</dd>
+                            <dt class="col-sm-3">FPSBA: </dt><dd class="text-monospace col-sm-9">{{.IFD.HEADER.FLMAP1.FPSBA}}</dd>
+                            <dt class="col-sm-3">NM:</dt><dd class="text-monospace col-sm-9">{{.IFD.HEADER.FLMAP1.NM}}</dd>
+                            <dt class="col-sm-3">FMBA: </dt><dd class="text-monospace col-sm-9">{{.IFD.HEADER.FLMAP1.FMBA}}</dd>
+                        </dl>
+                    </dd>
+                    <dt class="col-sm-3">FLMAP2:    </dt><dd class="text-monospace col-sm-9">
+                        <dl class="row">
+                            <dt class="col-sm-3">RIL: </dt><dd class="text-monospace col-sm-9">{{.IFD.HEADER.FLMAP2.RIL}}</dd>
+                            <dt class="col-sm-3">ICCRIBA: </dt><dd class="text-monospace col-sm-9">{{.IFD.HEADER.FLMAP2.ICCRIBA}}</dd>
+                            <dt class="col-sm-3">PSL:</dt><dd class="text-monospace col-sm-9">{{.IFD.HEADER.FLMAP2.PSL}}</dd>
+                            <dt class="col-sm-3">FMSBA: </dt><dd class="text-monospace col-sm-9">{{.IFD.HEADER.FLMAP2.FMSBA}}</dd>
+                        </dl></dd>
+                    <dt class="col-sm-3">FLUMAP1:    </dt><dd class="text-monospace col-sm-9">
+                        <dl class="row">
+                            <dt class="col-sm-3">VTL: </dt><dd class="text-monospace col-sm-9">{{.IFD.HEADER.FLUMAP1.VTL}}</dd>
+                            <dt class="col-sm-3">VTBA: </dt><dd class="text-monospace col-sm-9">{{.IFD.HEADER.FLUMAP1.VTBA}}</dd>
+                        </dl>
+                    </dd>
+                    <dt class="col-sm-3">Parsed:    </dt><dd class="text-monospace col-sm-9"></dd>
+                    <dt class="col-sm-3">FlashControl:    </dt><dd class="text-monospace col-sm-9">
+                        {{range .IFD.FLASHCONTROL}}
+                            <dl class="row">
+                                <dt class="col-sm-3">Component: </dt><dd class="text-monospace col-sm-9">
+                                    <dl class="row">
+                                        <dt class="col-sm-3">DeviceID0: </dt><dd class="text-monospace col-sm-9">{{.COMPONENT.DeviceID0}}</dd>
+                                        <dt class="col-sm-3">DeviceID1: </dt><dd class="text-monospace col-sm-9">{{.COMPONENT.DeviceID1}}</dd>
+                                        <dt class="col-sm-3">VendorID: </dt><dd class="text-monospace col-sm-9">{{.COMPONENT.VendorID}}</dd>
+                                    </dl>
+                                </dd>
+                                <dt class="col-sm-3">Control: </dt><dd class="text-monospace col-sm-9">
+                                    <dl class="row">
+                                        <dt class="col-sm-3">LowerEraseOpcode: </dt><dd class="text-monospace col-sm-9">{{.CONTROL.LowerEraseOpcode}}</dd>
+                                        <dt class="col-sm-3">LowerWriteEnableOnWriteStatus: </dt><dd class="text-monospace col-sm-9">{{.CONTROL.LowerWriteEnableOnWriteStatus}}</dd>
+                                        <dt class="col-sm-3">LowerWriteStatusRequired: </dt><dd class="text-monospace col-sm-9">{{.CONTROL.LowerWriteStatusRequired}}</dd>
+                                        <dt class="col-sm-3">LowerWriteGranularity: </dt><dd class="text-monospace col-sm-9">{{.CONTROL.LowerWriteGranularity}}</dd>
+                                        <dt class="col-sm-3">LowerBlockAndSectorEraseSize: </dt><dd class="text-monospace col-sm-9">{{.CONTROL.LowerBlockAndSectorEraseSize}}</dd>
+                                        <dt class="col-sm-3">UpperEraseOpcode: </dt><dd class="text-monospace col-sm-9">{{.CONTROL.UpperEraseOpcode}}</dd>
+                                        <dt class="col-sm-3">UpperWriteEnableOnWriteStatus: </dt><dd class="text-monospace col-sm-9">{{.CONTROL.UpperWriteEnableOnWriteStatus}}</dd>
+                                        <dt class="col-sm-3">UpperWriteStatusRequired: </dt><dd class="text-monospace col-sm-9">{{.CONTROL.UpperWriteStatusRequired}}</dd>
+                                        <dt class="col-sm-3">UpperWriteGranularity: </dt><dd class="text-monospace col-sm-9">{{.CONTROL.UpperWriteGranularity}}</dd>
+                                        <dt class="col-sm-3">UpperBlockAndSectorEraseSize: </dt><dd class="text-monospace col-sm-9">{{.CONTROL.UpperBlockAndSectorEraseSize}}</dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+                        {{end}}
+                    </dd>
+                    <dt class="col-sm-3">Regions:    </dt><dd class="text-monospace col-sm-9">
+                        <dl class="row">
+                            <dt class="col-sm-3">Flash Descriptor: </dt><dd class="text-monospace col-sm-9">
+                                <dl class="row">
+                                    <dt class="col-sm-3">Start: </dt><dd class="text-monospace col-sm-9">{{.IFD.REGION.FLASH.START}}</dd>
+                                    <dt class="col-sm-3">End: </dt><dd class="text-monospace col-sm-9">{{.IFD.REGION.FLASH.END}}</dd>
+                                </dl>
+                            </dd>
+                            <dt class="col-sm-3">Bios: </dt><dd class="text-monospace col-sm-9">
+                                <dl class="row">
+                                    <dt class="col-sm-3">Start: </dt><dd class="text-monospace col-sm-9">{{.IFD.REGION.BIOS.START}}</dd>
+                                    <dt class="col-sm-3">End: </dt><dd class="text-monospace col-sm-9">{{.IFD.REGION.BIOS.END}}</dd>
+                                </dl>
+                            </dd>
+                            <dt class="col-sm-3">Managment Engine: </dt><dd class="text-monospace col-sm-9">
+                                <dl class="row">
+                                    <dt class="col-sm-3">Start: </dt><dd class="text-monospace col-sm-9">{{.IFD.REGION.ME.START}}</dd>
+                                    <dt class="col-sm-3">End: </dt><dd class="text-monospace col-sm-9">{{.IFD.REGION.ME.END}}</dd>
+                                </dl>
+                            </dd>
+                            <dt class="col-sm-3">Ethernet: </dt><dd class="text-monospace col-sm-9">
+                                <dl class="row">
+                                    <dt class="col-sm-3">Start: </dt><dd class="text-monospace col-sm-9">{{.IFD.REGION.ETHERNET.START}}</dd>
+                                    <dt class="col-sm-3">End: </dt><dd class="text-monospace col-sm-9">{{.IFD.REGION.ETHERNET.END}}</dd>
+                                </dl>
+                            </dd>
+                            <dt class="col-sm-3">Platform: </dt><dd class="text-monospace col-sm-9">
+                                <dl class="row">
+                                    <dt class="col-sm-3">Start: </dt><dd class="text-monospace col-sm-9">{{.IFD.REGION.PLATFORM.START}}</dd>
+                                    <dt class="col-sm-3">End: </dt><dd class="text-monospace col-sm-9">{{.IFD.REGION.PLATFORM.END}}</dd>
+                                </dl>
+                            </dd>
+                            <dt class="col-sm-3">Expansion: </dt><dd class="text-monospace col-sm-9">
+                                <dl class="row">
+                                    <dt class="col-sm-3">Start: </dt><dd class="text-monospace col-sm-9">{{.IFD.REGION.EXPANSION.START}}</dd>
+                                    <dt class="col-sm-3">End: </dt><dd class="text-monospace col-sm-9">{{.IFD.REGION.EXPANSION.END}}</dd>
+                                </dl>
+                            </dd>
+                            <dt class="col-sm-3">Embedded Controller: </dt><dd class="text-monospace col-sm-9">
+                                <dl class="row">
+                                    <dt class="col-sm-3">Start: </dt><dd class="text-monospace col-sm-9">{{.IFD.REGION.EC.START}}</dd>
+                                    <dt class="col-sm-3">End: </dt><dd class="text-monospace col-sm-9">{{.IFD.REGION.EC.END}}</dd>
+                                </dl>
+                            </dd>
+                        </dl>
+                    </dd>
+                    <dt class="col-sm-3">Component:    </dt><dd class="text-monospace col-sm-9">
+                        <dl class="row">
+                            <dt class="col-sm-3">FLCOMP: </dt><dd class="text-monospace col-sm-9">
+                                <dl class="row">
+                                    <dt class="col-sm-3">DualOutputFastReadSupport: </dt><dd class="text-monospace col-sm-9">{{.IFD.COMPONENT.FLCOMP.DualOutputFastReadSupport}}</dd>
+                                    <dt class="col-sm-3">ReadIDStatusClockFrequency: </dt><dd class="text-monospace col-sm-9">{{.IFD.COMPONENT.FLCOMP.ReadIDStatusClockFrequency}}</dd>
+                                    <dt class="col-sm-3">WriteEraseClockFrequency: </dt><dd class="text-monospace col-sm-9">{{.IFD.COMPONENT.FLCOMP.WriteEraseClockFrequency}}</dd>
+                                    <dt class="col-sm-3">FastReadClockFrequency: </dt> <dd class="text-monospace col-sm-9">{{.IFD.COMPONENT.FLCOMP.FastReadClockFrequency}}</dd>
+                                    <dt class="col-sm-3">FastReadSupport: </dt><dd class="text-monospace col-sm-9">{{.IFD.COMPONENT.FLCOMP.FastReadSupport}}</dd>
+                                    <dt class="col-sm-3">ReadClockFrequency: </dt><dd class="text-monospace col-sm-9">{{.IFD.COMPONENT.FLCOMP.ReadClockFrequency}}</dd>
+                                    <dt class="col-sm-3">Component1Density: </dt><dd class="text-monospace col-sm-9">{{.IFD.COMPONENT.FLCOMP.Component1Density}}</dd>
+                                    <dt class="col-sm-3">Component2Density: </dt><dd class="text-monospace col-sm-9">{{.IFD.COMPONENT.FLCOMP.Component2Density}}</dd>
+                                </dl>
+                            </dd>
+                            <dt class="col-sm-3">FLILL: </dt><dd class="text-monospace col-sm-9">
+                                <dl class="row">
+                                    <dt class="col-sm-3">InvalidInstruction0: </dt><dd class="text-monospace col-sm-9">{{.IFD.COMPONENT.FLILL.InvalidInstruction0}}</dd>
+                                    <dt class="col-sm-3">InvalidInstruction1: </dt><dd class="text-monospace col-sm-9">{{.IFD.COMPONENT.FLILL.InvalidInstruction1}}</dd>
+                                    <dt class="col-sm-3">InvalidInstruction2: </dt><dd class="text-monospace col-sm-9">{{.IFD.COMPONENT.FLILL.InvalidInstruction2}}</dd>
+                                    <dt class="col-sm-3">InvalidInstruction3: </dt> <dd class="text-monospace col-sm-9">{{.IFD.COMPONENT.FLILL.InvalidInstruction3}}</dd>
+                                </dl>
+                            </dd>
+                            <dt class="col-sm-3">FLPB: </dt><dd class="text-monospace col-sm-9">
+                                <dl class="row">
+                                    <dt class="col-sm-3">FlashPartitionBoundaryAddress: </dt><dd class="text-monospace col-sm-9">{{.IFD.COMPONENT.FLPB.FlashPartitionBoundaryAddress}}</dd>
+
+                                </dl>
+                            </dd>
+                        </dl>
+                    </dd>
+                    <dt class="col-sm-3">Straps:    </dt><dd class="text-monospace col-sm-9">
+                        <dl class="row">
+                            <dt class="col-sm-3">PCH Straps: </dt><dd class="text-monospace col-sm-9">
+                                <dl class="row">
+                                    {{range .IFD.PCHSTRAP}}
+                                        <dd class="text-monospace col-sm-9">{{.}}</dd>
+                                    {{end}}
+                                </dl>
+                            </dd>
+                            <dt class="col-sm-3">CPU Straps: </dt><dd class="text-monospace col-sm-9">
+                                <dl class="row">
+                                    {{range .IFD.STRAP}}
+                                        <dd class="text-monospace col-sm-9">{{.}}</dd>
+                                    {{end}}
+                                </dl>
+                            </dd>
+                        </dl>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+{{end}}
