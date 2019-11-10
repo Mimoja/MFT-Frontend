@@ -44,8 +44,8 @@ type FlashDocument struct {
 
 type CertificateDocument struct {
 	Valid          bool
-	Subject        string
-	Issuer         string
+	Subject        []string
+	Issuer         []string
 	Serial         string
 	Raw            map[string]interface{}
 }

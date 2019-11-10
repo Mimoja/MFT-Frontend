@@ -107,11 +107,12 @@ func reportIDHandler(c *gin.Context) {
 				log.Println("Cert is empty")
 				continue
 			}
+
 			certDoc := CertificateDocument{
 				Raw:     newCert,
 				Valid:   validity_end.After(time.Now()),
-				Subject: subjectMap["common_name"][0],
-				Issuer:  issuerMap["common_name"][0],
+				Subject: subjectMap["common_name"],
+				Issuer:  issuerMap["common_name"],
 				Serial:  newCert["serial_number"].(string),
 			}
 

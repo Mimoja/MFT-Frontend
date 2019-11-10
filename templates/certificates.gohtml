@@ -5,8 +5,14 @@
         <dt class="col-sm-3">Valid Now: </dt><dd class="text-monospace col-sm-9">{{.Valid}}</dd>
         <dt class="col-sm-3">Valid From: </dt><dd class="text-monospace col-sm-9">{{.Raw.validity.start}}</dd>
         <dt class="col-sm-3">Valid To: </dt><dd class="text-monospace col-sm-9">{{.Raw.validity.end}}</dd>
-        <dt class="col-sm-3">Issuer:    </dt><dd class="text-monospace col-sm-9">{{.Issuer}}</dd>
-        <dt class="col-sm-3">Subject:    </dt><dd class="text-monospace col-sm-9">{{.Subject}}</dd>
+        <dt class="col-sm-3">Issuer:    </dt>
+        {{range .Issuer}}
+        <dd class="text-monospace col-sm-9">{{.}}</dd>
+        {{end}}
+        <dt class="col-sm-3">Subject:    </dt>
+        {{range .Subject}}
+        <dd class="text-monospace col-sm-9">{{.}}</dd>
+        {{end}}
     </dl>
     {{else}}
     <span class="col-sm-12 btn-primary">No Certificates found</span>
