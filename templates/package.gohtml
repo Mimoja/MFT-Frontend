@@ -8,8 +8,11 @@
                 {{if not .Import.MetaData.Version}}{{else}}    <dt class="col-4">Version</dt>     <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Version}}">{{.Import.MetaData.Version}}</a></dd>{{end}}
                 {{if not .Import.MetaData.Title}}{{else}}      <dt class="col-4">Title</dt>       <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Title}}">{{.Import.MetaData.Title}}</a></dd>{{end}}
                 {{if not .Import.MetaData.Description}}{{else}}<dt class="col-4">Description</dt> <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Description}}">{{.Import.MetaData.Description}}</a></dd>{{end}}
-                {{if not .Import.MetaData.ReleaseDate}}{{else}}<dt class="col-4">ReleaseDate</dt> <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.ReleaseDate}}">{{.Import.MetaData.ReleaseDate}}</a></dd>{{end}}
-                {{if not .Import.MetaData.DownloadURL}}{{else}}<dt class="col-4">DownloadURL</dt> <dd class="col-sm-8"><a href="">{{.Import.MetaData.DownloadURL}}</a></dd>{{end}}
+                {{if not .Import.MetaData.ReleaseDate}}{{else}}<dt class="col-4">Release Date</dt> <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.ReleaseDate}}">{{.Import.MetaData.ReleaseDate}}</a></dd>{{end}}
+                {{if not .Import.MetaData.DownloadURL}}{{else}}<dt class="col-4">Download URL</dt> <dd class="col-sm-8"><a href="">{{.Import.MetaData.DownloadURL}}</a></dd>{{end}}
+                {{if not .Import.ImportTime}}{{else}}          <dt class="col-4">Initial Import</dt><dd class="col-sm-8">{{.Import.ImportTime}}</dd>{{end}}
+                {{if not .Import.LastImportTime}}{{else}}      <dt class="col-4">Last Import</dt>   <dd class="col-sm-8">{{.Import.LastImportTime}}"</dd>{{end}}
+
                 </dl>
             </div>
             <div class="col-7">
@@ -18,7 +21,7 @@
         </div>
     </div>
     <div class="    card card-body m-2">
-       <dl class="row">
+       <dl class="row"> 
         {{range .Import.Contents}}
             <a class="col-sm-12" href="/file/{{.ID.GetID}}">{{.Path}}
                 {{range .Tags}}

@@ -19,7 +19,7 @@ func importOverviewHandler(c *gin.Context) {
 	searchResult, err := Bundle.DB.ES.Search().
 		Index("imports").
 		Sort("ImportTime", false).
-		From(0).Size(numberOfResults).
+		From(0).Size(int(numberOfResults)).
 		Do(c.Request.Context())
 
 	if err != nil {
