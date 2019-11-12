@@ -12,7 +12,6 @@
                 {{if not .Import.MetaData.DownloadURL}}{{else}}<dt class="col-4">Download URL</dt> <dd class="col-sm-8"><a href="">{{.Import.MetaData.DownloadURL}}</a></dd>{{end}}
                 {{if not .Import.ImportTime}}{{else}}          <dt class="col-4">Initial Import</dt><dd class="col-sm-8">{{.Import.ImportTime}}</dd>{{end}}
                 {{if not .Import.LastImportTime}}{{else}}      <dt class="col-4">Last Import</dt>   <dd class="col-sm-8">{{.Import.LastImportTime}}"</dd>{{end}}
-
                 </dl>
             </div>
             <div class="col-7">
@@ -20,6 +19,7 @@
             </div>
         </div>
     </div>
+    {{if .Import.Contents}}
     <div class="    card card-body m-2">
        <dl class="row"> 
         {{range .Import.Contents}}
@@ -32,4 +32,5 @@
         {{end}}
         </dl>
     </div>
+    {{end}}
 {{end}}

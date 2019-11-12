@@ -3,16 +3,18 @@
 {{if .Page.IsOkay}}
 	<a class="card card-body alert-warning" href="https://github.com/Mimoja/MFT/issues/new?title=Report for {{if not .UploadMeta.Name}}{{.Import.MetaData.PackageID.GetID}}{{else}}{{.UploadMeta.Name}}{{end}} appears to be broken.&&body====PLEASE WRITE A SHORT DESCRIPTION OF THE PROBLEME HERE====%0A%0A%0A```%0A{{toPrettyJson .Import}}%0A```">Report a Bug </a> </a>
 	<div class="content">
-	<h2>Report for {{if not .UploadMeta.Name}}{{.Import.MetaData.PackageID.GetID}}{{else}}{{.UploadMeta.Name}}{{end}}</h2>
-</div>
-{{template "package" .}}
-{{range .FlashImages}}
-	{{template "flashimage" .}}
-{{end}}
+	    <h2 class="overflow-auto">Report for {{if not .UploadMeta.Name}}{{.Import.MetaData.PackageID.GetID}}{{else}}{{.UploadMeta.Name}}{{end}}</h2>
+    </div>
+    {{template "package" .}}
+    {{range .FlashImages}}
+        {{template "flashimage" .}}
+    {{else}}
+        <div class="content">
+            <h3>No x86 flashimage found. If you think this is wrong please report a bug and give us a hint of the used format or system</h3>
+        </div>
+    {{end}}
 {{else}}
-	<div class="content">
-		<h2>{{.Page.Error}}</h2>
-	</div>
+	{{.Page.Error}}
 {{end}}
 {{template "footer"}}
 {{end}}
