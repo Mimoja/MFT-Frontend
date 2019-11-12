@@ -1,8 +1,9 @@
 {{define "report"}}
 {{template "header" .}}
 {{if .Page.IsOkay}}
-	<a class="card card-body alert-warning" href="https://github.com/Mimoja/MFT/issues/new?title=Report for {{if not .UploadMeta.Name}}{{.Import.MetaData.PackageID.GetID}}{{else}}{{.UploadMeta.Name}}{{end}} appears to be broken.&&body====PLEASE WRITE A SHORT DESCRIPTION OF THE PROBLEME HERE====%0A%0A%0A```%0A{{toPrettyJson .Import}}%0A```">Report a Bug </a> </a>
-	<div class="content">
+	<a class="card card-body alert-warning" href="https://github.com/Mimoja/MFT/issues/new?title=Report for {{if not .UploadMeta.Name}}{{.Import.MetaData.PackageID.GetID}}{{else}}{{.UploadMeta.Name}}{{end}} appears to be broken.&&body====PLEASE WRITE A SHORT DESCRIPTION OF THE PROBLEME HERE====%0A%0A%0A```%0A{{toPrettyJson .Import}}%0A```">Report a Bug </a>
+    <a class="card card-body alert-success" href="/rescan/{{.Import.MetaData.PackageID.GetID}}">Rescan</a>
+    <div class="content">
 	    <h2 class="overflow-auto">Report for {{if not .UploadMeta.Name}}{{.Import.MetaData.PackageID.GetID}}{{else}}{{.UploadMeta.Name}}{{end}}</h2>
     </div>
     {{template "package" .}}

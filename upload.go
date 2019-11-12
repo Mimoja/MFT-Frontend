@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/Mimoja/MFT-Common"
 	"fmt"
+	"github.com/Mimoja/MFT-Common"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
 	"net/http"
@@ -47,7 +47,7 @@ func uploadHandler(c *gin.Context) {
 	idString := ID.GetID()
 	Bundle.DB.StoreElement("useruploads", nil, entry, &idString)
 
-	err = Bundle.MessageQueue.DownloadedQueue.MarshalAndSend(entry.MetaData)
+	err = Bundle.MessageQueue.DownloadedQueue.MarshalAndSend(MFTCommon.DownloadWrapper{entry.MetaData, true})
 
 	if err != nil {
 		Bundle.Log.WithError(err).Error("Could not store file to storage! ", err)

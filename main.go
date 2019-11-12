@@ -145,6 +145,7 @@ func main() {
 	r.GET("/about", aboutHandler)
 	r.GET("/search", searchHandler)
 	r.POST("/upload", uploadHandler)
+	r.GET("/rescan/:reportID", rescanHandler)
 	r.GET("/file/:file", fileHandler)
 
 	if err := r.Run(":9080"); err != nil {
