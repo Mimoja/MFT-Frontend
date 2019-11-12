@@ -11,6 +11,7 @@ import (
 )
 
 func reportIDHandler(c *gin.Context) {
+	var jsonOutput bool
 	page := &ReportPage{
 		Page: Page{
 			Title:  "Report",
@@ -24,6 +25,9 @@ func reportIDHandler(c *gin.Context) {
 		errorResponse(c, http.StatusBadRequest, "Report not specified")
 		return
 	}
+
+	jsonOutput = c.Query("json") == "true"
+
 	found, err, result := Bundle.DB.Exists("imports", query)
 
 	if err != nil {
@@ -43,14 +47,14 @@ func reportIDHandler(c *gin.Context) {
 		Bundle.Log.WithError(err).Info("Could not get old entry from elastic: %v", err)
 		errorResponse(c, http.StatusBadRequest, "Report not found")
 	} else {
-		err = json.Unmarshal(sourceBytes, &page.Import)
+		err = json.Unmarshal(sourceBytes, &page.Data.Import)
 		if err != nil {
 			Bundle.Log.WithError(err).WithField("payload", string(sourceBytes)).Warnf("Could unmarshall old entry from elastic: %v", err)
 			errorResponse(c, http.StatusBadRequest, "Report not found")
 		}
 	}
 
-	for _, b := range page.Import.Contents {
+	for _, b := range page.Data.Import.Contents {
 		exists, err, value := Bundle.DB.Exists("flashimages", b.ID.GetID())
 		if err != nil {
 			logrus.Info("Could not query bug %s from elastic: ", err, b)
@@ -119,7 +123,17 @@ func reportIDHandler(c *gin.Context) {
 			flashDocument.Certificates = append(flashDocument.Certificates, certDoc)
 		}
 
-		page.FlashImages = append(page.FlashImages, flashDocument)
+		page.Data.FlashImages = append(page.Data.FlashImages, flashDocument)
+	}
+	if jsonOutput {
+		c.Header("Content-Type", "application/json")
+		responseBytes, err := json.MarshalIndent(page.Data, "", " ")
+		if err != nil {
+			log.Println("Could not execute template", err)
+			errorResponse(c, http.StatusInternalServerError, "Something went wrong")
+		}
+		c.Writer.Write(responseBytes)
+		return;
 	}
 
 	display(c, "report", page)

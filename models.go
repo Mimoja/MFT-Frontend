@@ -31,10 +31,11 @@ type ImportRef struct {
 
 type ReportPage struct {
 	Page
-	UploadMeta  ImportRef
-	Import      MFTCommon.ImportEntry
 	Config      *MFTCommon.AppRunConfiguration
-	FlashImages []FlashDocument
+	Data struct {
+		Import      MFTCommon.ImportEntry
+		FlashImages []FlashDocument
+	}
 }
 
 type FlashDocument struct {
