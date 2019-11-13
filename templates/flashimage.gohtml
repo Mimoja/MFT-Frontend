@@ -13,25 +13,18 @@
             {{template "certificates" .}}
             </div>
         </div>
-        {{if not .FlashImage.AMD}}{{else}}
-            <div class="row" >
-                <div class="col-12">
-                    <h3>AMD</h3>
 
-                </div>
-            </div>
-        {{end}}
-
-        {{if not .FlashImage.INTEL}}{{else}}
+        {{if .FlashImage.INTEL}}
             {{template "intel" .FlashImage.INTEL}}
         {{end}}
 
-        {{if not .FlashImage.AMD}}{{else}}
+        {{if .FlashImage.AMD}}
+            {{template "amd" .FlashImage.AMD}}
 
-        <div id="EVERYTHING_AMD_{{.FlashImage.ID.GetID}}"></div>
+        <div id="EVERYTHING_EFI_{{.FlashImage.ID.GetID}}"></div>
 
         <script>
-            var json = {{toJson .FlashImage.AMD}};
+            var json = {{toJson .FlashImage.EFI}};
             var obj = JSON.parse(json);
             document.getElementById("EVERYTHING_AMD_{{.FlashImage.ID.GetID}}").innerHTML = JSONTree.create(obj);
         </script>

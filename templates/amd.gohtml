@@ -1,0 +1,122 @@
+{{define "amd"}}
+    <div class="row" >
+        <div class="col-12">
+            <h3>AMD</h3>
+            <div class="card-body card row">
+                <h4>AGESA:</h4>
+                {{range .AGESA}}
+                <dl class="row col-12">
+                    <dt class="col-sm-3">Header:    </dt><dd class="text-monospace col-sm-9">{{.Header}}</dd>
+                    <dt class="col-sm-3">Offset in File:    </dt><dd class="text-monospace col-sm-9">{{.Offset}}</dd>
+                </dl>
+                {{end}}
+                <h4>Firmware:</h4>
+                <dl class="row col-12">
+                    <dt class="col-sm-3">Flash Mapping Mask: </dt><dd class="text-monospace col-sm-9">{{.Firmware.FlashMapping}}</dd>
+                    <dt class="col-sm-3">FET: </dt><dd class="text-monospace col-sm-9">
+                        <dl class="row">
+                            <dt class="col-sm-3">Location: </dt><dd class="text-monospace col-sm-9">{{.Firmware.FET.Location}}</dd>
+                            <dt class="col-sm-3">Signature: </dt><dd class="text-monospace col-sm-9">{{.Firmware.FET.Signature}}</dd>
+                            <dt class="col-sm-3">ImcRomBase:</dt><dd class="text-monospace col-sm-9">{{.Firmware.FET.ImcRomBase}}</dd>
+                            <dt class="col-sm-3">GecRomBase: </dt><dd class="text-monospace col-sm-9">{{.Firmware.FET.GecRomBase}}</dd>
+                            <dt class="col-sm-3">XHCRomBase:</dt><dd class="text-monospace col-sm-9">{{.Firmware.FET.XHCRomBase}}</dd>
+                            <dt class="col-sm-3">PSP Diretory Base:</dt><dd class="text-monospace col-sm-9">{{.Firmware.FET.PSPDirBase}}</dd>
+                            <dt class="col-sm-3">NewPSP Directory Base:</dt><dd class="text-monospace col-sm-9">{{.Firmware.FET.NewPSPDirBase}}</dd>
+                            <dt class="col-sm-3">BHD Directry Base:</dt><dd class="text-monospace col-sm-9">{{.Firmware.FET.BHDDirBase}}</dd>
+                            <dt class="col-sm-3">NewBHD Directory Base:</dt><dd class="text-monospace col-sm-9">{{.Firmware.FET.NewBHDDirBase}}</dd>
+                        </dl>
+                    </dd>
+                    <dt class="col-sm-3">Roms: </dt><dd class="text-monospace col-sm-9">
+                    {{range .Firmware.Roms}}
+                        <dl class="row col-12">
+                            <dt class="col-sm-3">Type: </dt><dd class="text-monospace col-sm-9">{{.Type}}</dd>
+                            <dt class="col-sm-3">Directories: </dt><dd class="text-monospace col-sm-9">
+                            {{range .Directories}}
+                                <dl class="row col-12">
+                                    <dt class="col-sm-3">Header: </dt><dd class="text-monospace col-sm-9">
+                                    <dl class="row col-12">
+                                        <dt class="col-sm-3">Cookie: </dt><dd class="text-monospace col-sm-9">{{.Header.Cookie}}</dd>
+                                        <dt class="col-sm-3">Checksum: </dt><dd class="text-monospace col-sm-9">{{.Header.Checksum}}</dd>
+                                        <dt class="col-sm-3">Checksum Valid: </dt><dd class="text-monospace col-sm-9">{{.Header.ChecksumValid}}</dd>
+                                        <dt class="col-sm-3">TotalEntries: </dt><dd class="text-monospace col-sm-9">{{.Header.TotalEntries}}</dd>
+                                        <dt class="col-sm-3">Reserved: </dt><dd class="text-monospace col-sm-9">{{.Header.Reserved}}</dd>
+                                        </dl>
+                                    </dd>
+                                    <dt class="col-sm-3">Entries: </dt><dd class="text-monospace col-sm-9">
+                                        {{range .Entries}}
+                                        <dl class="card row">
+                                            <dt class="col-sm-3">Directory Entry: </dt><dd class="text-monospace col-sm-9 overflow-auto">
+                                                <dl class="row col-12">
+                                                    <dt class="col-sm-3">Type: </dt><dd class="text-monospace col-sm-9">{{.DirectoryEntry.Type}}</dd>
+                                                    {{if .TypeInfo.Name}}
+                                                        <dt class="col-sm-3">Type Name: </dt><dd class="text-monospace col-sm-9 overflow-auto">{{.TypeInfo.Name}}</dd>
+                                                    {{end}}
+                                                    {{if .TypeInfo.Comment}}
+                                                        <dt class="col-sm-3">Type Comment: </dt><dd class="text-monospace col-sm-9 overflow-auto">{{.TypeInfo.Comment}}</dd>
+                                                    {{end}}
+                                                    <dt class="col-sm-3">Size: </dt><dd class="text-monospace col-sm-9">{{.DirectoryEntry.Size}}</dd>
+                                                    <dt class="col-sm-3">Location: </dt><dd class="text-monospace col-sm-9">{{.DirectoryEntry.Location}}</dd>
+                                                    <dt class="col-sm-3">Reserved: </dt><dd class="text-monospace col-sm-9">{{.DirectoryEntry.Reserved}}</dd>
+                                                    {{if .DirectoryEntry.Unknown}}
+                                                        <dt class="col-sm-3">Unknown: </dt><dd class="text-monospace col-sm-9">{{.DirectoryEntry.Unknown}}</dd>
+                                                    {{end}}
+                                                </dl>
+                                            </dd>
+                                            <dt class="col-sm-3">Version: </dt><dd class="text-monospace col-sm-9 overflow-auto">{{.Version}}</dd>
+
+                                            <dt class="col-sm-3">ID: </dt><dd class="text-monospace col-sm-9 overflow-auto">
+                                                {{template "hashes" .ID}}
+                                            </dd>
+                                            <dt class="col-sm-3">Signature: </dt><dd class="text-monospace col-sm-9 overflow-auto">{{.Signature}}</dd>
+                                            {{if .Comment}}
+                                                <dt class="col-sm-3">Comment: </dt><dd class="text-monospace col-sm-9 overflow-auto">{{.Comment}}</dd>
+                                            {{end}}
+
+                                            {{if .Header}}
+                                            <dt class="col-sm-3">(Undocumented) Header: </dt><dd class="text-monospace col-sm-9 overflow-auto">
+                                                <dl class="row col-12">
+                                                    <dt class="col-sm-3">EncFingerprint </dt><dd class="text-monospace col-sm-9">{{.Header.EncFingerprint}}</dd>
+                                                    <dt class="col-sm-3">FullSize </dt><dd class="text-monospace col-sm-9">{{.Header.FullSize}}</dd>
+                                                    <dt class="col-sm-3">ID </dt><dd class="text-monospace col-sm-9">{{.Header.ID}}</dd>
+                                                    <dt class="col-sm-3">IsCompressed </dt><dd class="text-monospace col-sm-9">{{.Header.IsCompressed}}</dd>
+                                                    <dt class="col-sm-3">IsEncrypted </dt><dd class="text-monospace col-sm-9">{{.Header.IsEncrypted}}</dd>
+                                                    <dt class="col-sm-3">IsSigned </dt><dd class="text-monospace col-sm-9">{{.Header.IsSigned}}</dd>
+                                                    <dt class="col-sm-3">SigFingerprint </dt><dd class="text-monospace col-sm-9">{{.Header.SigFingerprint}}</dd>
+                                                    <dt class="col-sm-3">SizePacked </dt><dd class="text-monospace col-sm-9">{{.Header.SizePacked}}</dd>
+                                                    <dt class="col-sm-3">SizeSigned </dt><dd class="text-monospace col-sm-9">{{.Header.SizeSigned}}</dd>
+                                                    <dt class="col-sm-3">Version </dt><dd class="text-monospace col-sm-9">{{.Header.Version}}</dd>
+                                                    <dt class="col-sm-3">Unknown00 </dt><dd class="text-monospace col-sm-9">{{.Header.Unknown00}}</dd>
+                                                    <dt class="col-sm-3">Unknown1C </dt><dd class="text-monospace col-sm-9">{{.Header.Unknown1C}}</dd>
+                                                    <dt class="col-sm-3">Unknown34 </dt><dd class="text-monospace col-sm-9">{{.Header.Unknown34}}</dd>
+                                                    <dt class="col-sm-3">Unknown4C </dt><dd class="text-monospace col-sm-9">{{.Header.Unknown4C}}</dd>
+                                                    <dt class="col-sm-3">Unknown54 </dt><dd class="text-monospace col-sm-9">{{.Header.Unknown54}}</dd>
+                                                    <dt class="col-sm-3">Unknown58 </dt><dd class="text-monospace col-sm-9">{{.Header.Unknown58}}</dd>
+                                                    <dt class="col-sm-3">Unknown64 </dt><dd class="text-monospace col-sm-9">{{.Header.Unknown64}}</dd>
+                                                    <dt class="col-sm-3">Unknown68 </dt><dd class="text-monospace col-sm-9">{{.Header.Unknown68}}</dd>
+                                                    <dt class="col-sm-3">Unknown70 </dt><dd class="text-monospace col-sm-9">{{.Header.Unknown70}}</dd>
+                                                    <dt class="col-sm-3">Unknown80 </dt><dd class="text-monospace col-sm-9">{{.Header.Unknown80}}</dd>
+                                                    <dt class="col-sm-3">Unknown90 </dt><dd class="text-monospace col-sm-9">{{.Header.Unknown90}}</dd>
+                                                    <dt class="col-sm-3">Unknown94 </dt><dd class="text-monospace col-sm-9">{{.Header.Unknown94}}</dd>
+                                                    <dt class="col-sm-3">Unknown98 </dt><dd class="text-monospace col-sm-9">{{.Header.Unknown98}}</dd>
+                                                    <dt class="col-sm-3">Unknown9C </dt><dd class="text-monospace col-sm-9">{{.Header.Unknown9C}}</dd>
+                                                    <dt class="col-sm-3">UnknownA0 </dt><dd class="text-monospace col-sm-9">{{.Header.UnknownA0}}</dd>
+                                                    <dt class="col-sm-3">UnknownA4 </dt><dd class="text-monospace col-sm-9">{{.Header.UnknownA4}}</dd>
+                                                    <dt class="col-sm-3">UnknownA8 </dt><dd class="text-monospace col-sm-9">{{.Header.UnknownA8}}</dd>
+                                                    <dt class="col-sm-3">UnknownAC </dt><dd class="text-monospace col-sm-9">{{.Header.UnknownAC}}</dd>
+                                                    <dt class="col-sm-3">UnknownB0 </dt><dd class="text-monospace col-sm-9">{{.Header.UnknownB0}}</dd>
+                                                </dl>
+                                            </dd>
+                                            {{end}}
+                                        </dl>
+                                    {{end}}
+                                    </dd>
+                                </dl>
+                            {{end}}
+                            </dd>
+                        </dl>
+                    {{end}}
+                </dl>
+            </div>
+        </div>
+    </div>
+{{end}}

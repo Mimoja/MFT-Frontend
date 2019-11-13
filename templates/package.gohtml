@@ -3,15 +3,15 @@
         <div class="row">
             <div class="col-lg-4">
                 <dl class="row">
-                {{if not .Import.MetaData.Vendor}}{{else}}     <dt class="col-4">Vendor</dt>      <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Vendor}}">{{.Import.MetaData.Vendor}}</a></dd>{{end}}
-                {{if not .Import.MetaData.Product}}{{else}}    <dt class="col-4">Product</dt>     <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Product}}">{{.Import.MetaData.Product}}</a></dd>{{end}}
-                {{if not .Import.MetaData.Version}}{{else}}    <dt class="col-4">Version</dt>     <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Version}}">{{.Import.MetaData.Version}}</a></dd>{{end}}
-                {{if not .Import.MetaData.Title}}{{else}}      <dt class="col-4">Title</dt>       <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Title}}">{{.Import.MetaData.Title}}</a></dd>{{end}}
-                {{if not .Import.MetaData.Description}}{{else}}<dt class="col-4">Description</dt> <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Description}}">{{.Import.MetaData.Description}}</a></dd>{{end}}
-                {{if not .Import.MetaData.ReleaseDate}}{{else}}<dt class="col-4">Release Date</dt> <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.ReleaseDate}}">{{.Import.MetaData.ReleaseDate}}</a></dd>{{end}}
-                {{if not .Import.MetaData.DownloadURL}}{{else}}<dt class="col-4">Download URL</dt> <dd class="col-sm-8"><a href="">{{.Import.MetaData.DownloadURL}}</a></dd>{{end}}
-                {{if not .Import.ImportTime}}{{else}}          <dt class="col-4">Initial Import</dt><dd class="col-sm-8">{{.Import.ImportTime}}</dd>{{end}}
-                {{if not .Import.LastImportTime}}{{else}}      <dt class="col-4">Last Import</dt>   <dd class="col-sm-8">{{.Import.LastImportTime}}"</dd>{{end}}
+                {{if .Import.MetaData.Vendor}}     <dt class="col-4">Vendor</dt>      <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Vendor}}">{{.Import.MetaData.Vendor}}</a></dd>{{end}}
+                {{if .Import.MetaData.Product}}    <dt class="col-4">Product</dt>     <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Product}}">{{.Import.MetaData.Product}}</a></dd>{{end}}
+                {{if .Import.MetaData.Version}}    <dt class="col-4">Version</dt>     <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Version}}">{{.Import.MetaData.Version}}</a></dd>{{end}}
+                {{if .Import.MetaData.Title}}      <dt class="col-4">Title</dt>       <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Title}}">{{.Import.MetaData.Title}}</a></dd>{{end}}
+                {{if .Import.MetaData.Description}}<dt class="col-4">Description</dt> <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.Description}}">{{.Import.MetaData.Description}}</a></dd>{{end}}
+                {{if .Import.MetaData.ReleaseDate}}<dt class="col-4">Release Date</dt> <dd class="col-sm-8"><a href="/search?query={{.Import.MetaData.ReleaseDate}}">{{.Import.MetaData.ReleaseDate}}</a></dd>{{end}}
+                {{if .Import.MetaData.DownloadURL}}<dt class="col-4">Download URL</dt> <dd class="col-sm-8"><a href="">{{.Import.MetaData.DownloadURL}}</a></dd>{{end}}
+                {{if .Import.ImportTime}}          <dt class="col-4">Initial Import</dt><dd class="col-sm-8">{{.Import.ImportTime}}</dd>{{end}}
+                {{if .Import.LastImportTime}}      <dt class="col-4">Last Import</dt>   <dd class="col-sm-8">{{.Import.LastImportTime}}"</dd>{{end}}
                 </dl>
             </div>
             <div class="col-7">
