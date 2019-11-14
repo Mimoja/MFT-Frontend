@@ -20,13 +20,15 @@
 
         {{if .FlashImage.AMD}}
             {{template "amd" .FlashImage.AMD}}
+        {{end}}
 
+        {{if .FlashImage.EFIBlob}}
         <div id="EVERYTHING_EFI_{{.FlashImage.ID.GetID}}"></div>
 
         <script>
-            var json = {{toJson .FlashImage.EFI}};
+            var json = {{.FlashImage.EFIBlob}};
             var obj = JSON.parse(json);
-            document.getElementById("EVERYTHING_AMD_{{.FlashImage.ID.GetID}}").innerHTML = JSONTree.create(obj);
+            document.getElementById("EVERYTHING_EFI_{{.FlashImage.ID.GetID}}").innerHTML = JSONTree.create(obj);
         </script>
         {{end}}
 

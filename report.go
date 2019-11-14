@@ -7,6 +7,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -121,6 +122,17 @@ func reportIDHandler(c *gin.Context) {
 			}
 
 			flashDocument.Certificates = append(flashDocument.Certificates, certDoc)
+
+		}
+		if flashDocument.FlashImage.EFIBlob != "" {
+			flashDocument.FlashImage.EFIBlob = strings.ReplaceAll(flashDocument.FlashImage.EFIBlob, "\n","")
+			flashDocument.FlashImage.EFIBlob = strings.ReplaceAll(flashDocument.FlashImage.EFIBlob, "\t","")
+			log.Println("test", flashDocument.FlashImage.EFIBlob)
+			err = json.Unmarshal([]byte(flashDocument.FlashImage.EFIBlob), flashDocument.EFI)
+
+			if err != nil {
+				log.Println("Could not unmarshall EFI: ", err)
+			}
 		}
 
 		page.Data.FlashImages = append(page.Data.FlashImages, flashDocument)

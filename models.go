@@ -41,6 +41,7 @@ type ReportPage struct {
 type FlashDocument struct {
 	FlashImage MFTCommon.FlashImage
 	Certificates []CertificateDocument
+	EFI map[string]interface{}
 }
 
 type CertificateDocument struct {
