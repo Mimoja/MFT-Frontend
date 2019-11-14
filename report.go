@@ -127,8 +127,7 @@ func reportIDHandler(c *gin.Context) {
 		if flashDocument.FlashImage.EFIBlob != "" {
 			flashDocument.FlashImage.EFIBlob = strings.ReplaceAll(flashDocument.FlashImage.EFIBlob, "\n","")
 			flashDocument.FlashImage.EFIBlob = strings.ReplaceAll(flashDocument.FlashImage.EFIBlob, "\t","")
-			log.Println("test", flashDocument.FlashImage.EFIBlob)
-			err = json.Unmarshal([]byte(flashDocument.FlashImage.EFIBlob), flashDocument.EFI)
+			err = json.Unmarshal([]byte(flashDocument.FlashImage.EFIBlob), &flashDocument.EFI)
 
 			if err != nil {
 				log.Println("Could not unmarshall EFI: ", err)
