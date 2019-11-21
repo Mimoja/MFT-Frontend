@@ -23,7 +23,7 @@
     <div class="    card card-body m-2">
        <dl class="row"> 
         {{range .Import.Contents}}
-            <a class="col-sm-12" href="/file/{{.ID.GetID}}">{{.Path}}
+            <a class="col-sm-12">{{.Path}}
                 {{range .Tags}}
                     <span class="badge badge-secondary">{{.}}</span>
                 {{end}}
