@@ -1,9 +1,6 @@
-{{define "intel"}}
-    <div class="row" >
-        <div class="col-12">
-            <h3>Intel</h3>
-            <div class="card-body card row">
-                <h4>IFD:</h4>
+{{define "intel_ifd"}}
+    <div class="card-body card row">
+        <h4>IFD:</h4>
                 <dl class="row">
                     <dt class="col-sm-3">Version:    </dt><dd class="text-monospace col-sm-9">{{.IFD.Version}}</dd>
                     <dt class="col-sm-3">Offset: </dt><dd class="text-monospace col-sm-9">{{.IFD.HeaderOffset}}</dd>
@@ -160,7 +157,5 @@
                         </dl>
                     </dd>
                 </dl>
-            </div>
-        </div>
     </div>
 {{end}}

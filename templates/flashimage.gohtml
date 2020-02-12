@@ -14,9 +14,17 @@
             </div>
         </div>
 
-        {{if .FlashImage.INTEL}}
-            {{template "intel" .FlashImage.INTEL}}
-        {{end}}
+    {{if .FlashImage.INTEL}}
+        <div class="row" >
+            <div class="col-12">
+                <h3>Intel</h3>
+            {{if .FlashImage.INTEL.IFD}}
+                {{template "intel_ifd" .FlashImage.INTEL.IFD}}
+            {{end}}
+                </div>
+            </div>
+        </div>
+    {{end}}
 
         {{if .FlashImage.AMD}}
             {{template "amd" .FlashImage.AMD}}
