@@ -45,11 +45,13 @@ type FlashDocument struct {
 }
 
 type CertificateDocument struct {
-	Valid          bool
-	Subject        []string
-	Issuer         []string
-	Serial         string
-	Raw            map[string]interface{}
+	Valid      bool
+	Subject    []string
+	Issuer     []string
+	Serial     string
+	Raw        map[string]interface{}
+	Algorithm  string
+	SelfSigned bool
 }
 
 /*

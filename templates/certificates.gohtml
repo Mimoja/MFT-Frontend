@@ -5,6 +5,8 @@
         <dt class="col-sm-3">Valid Now: </dt><dd class="text-monospace col-sm-9">{{.Valid}}</dd>
         <dt class="col-sm-3">Valid From: </dt><dd class="text-monospace col-sm-9">{{.Raw.validity.start}}</dd>
         <dt class="col-sm-3">Valid To: </dt><dd class="text-monospace col-sm-9">{{.Raw.validity.end}}</dd>
+        <dt class="col-sm-3">Selfsigned: </dt><dd class="text-monospace col-sm-9">{{.SelfSigned}}</dd>
+        <dt class="col-sm-3">Signature Algorithm: </dt><dd class="text-monospace col-sm-9">{{.Algorithm}}</dd>
         <dt class="col-sm-3">Issuer:    </dt>
         {{range .Issuer}}
         <dd class="text-monospace col-sm-9">{{.}}</dd>

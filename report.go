@@ -101,6 +101,17 @@ func reportIDHandler(c *gin.Context) {
 				continue
 			}
 
+			signaturJSON, _ := json.Marshal(newCert["signature"])
+			var signatureMap map[string]interface{}
+			err = json.Unmarshal(signaturJSON, &signatureMap)
+			if err != nil {
+				log.Println("Could not unmarshall cert: ", err)
+				continue
+			}
+
+			signatureAlgo := signatureMap["signature_algorithm"].(map[string]interface{})["name"].(string);
+			self_signed := signatureMap["self_signed"].(bool);
+
 			issuerArrayJSON, _ := json.Marshal(newCert["issuer"])
 			var issuerMap map[string][]string
 			err = json.Unmarshal(issuerArrayJSON, &issuerMap)
@@ -119,6 +130,9 @@ func reportIDHandler(c *gin.Context) {
 				Subject: subjectMap["common_name"],
 				Issuer:  issuerMap["common_name"],
 				Serial:  newCert["serial_number"].(string),
+				Algorithm: signatureAlgo,
+				SelfSigned: self_signed,
+
 			}
 
 			flashDocument.Certificates = append(flashDocument.Certificates, certDoc)
